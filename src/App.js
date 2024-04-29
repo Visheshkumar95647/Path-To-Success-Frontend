@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import React, { useEffect } from "react";
+import Home from "../../client/src/Components/Home";
+import "./Components/App.css";
+import Postjob from "../../client/src/Components/Postjob";
+import Getalljobdetail from "../../client/src/Components/Getalljobdetail";
+import Useregister from "../../client/src/Components/Useregister";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import RequireAuth from "./Components/RequireAuth";
+import Aos from "aos";
+import "aos/dist/aos.css";
+import { useTypewriter, Cursor } from "react-simple-typewriter";
+import Footer from "./Components/Footer";
+import Header from "./Components/Header";
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <Header/>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/adduser" element={<Useregister />} />
+          <Route path="/postjob" element={<Postjob />} />
+          {/* Wrap Getalljobdetail with RequireAuth */}
+          <Route
+            path="/getalljob"
+            element={
+              <RequireAuth>
+                <Getalljobdetail />
+              </RequireAuth>
+            }
+          />
+        </Routes>
+      </Router>
+      <Footer />
+    </>
   );
 }
-
-export default App;
