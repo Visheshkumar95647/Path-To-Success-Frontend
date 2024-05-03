@@ -25,6 +25,7 @@ export default function Header() {
           <div className="logo" data-aos="zoom-in">
             <img src="pathe.jpg" alt="" />
           </div>
+          <div className="left-man">
           <div className="slogan" data-aos="zoom-in">
             <h1>
               Get Ready
@@ -36,6 +37,7 @@ export default function Header() {
           </div>
           <div className="man" data-aos="zoom-in">
             <img src="mmm.jpeg" alt="" />
+          </div>
           </div>
         </div>
         <div className="right" data-aos="zoom-out">

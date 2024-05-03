@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 export default function Useregister() {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
@@ -17,10 +16,10 @@ export default function Useregister() {
     }
   };
 
-  const handleProfileImageChange = (event) => {
-    const file = event.target.files[0]; // Get the first file from the selected files
-    setProfileImage(file); // Store the selected file in state
-  };
+  // const handleProfileImageChange = (event) => {
+  //   const file = event.target.files[0]; 
+  //   setProfileImage(file); 
+  // };
 
   const addUserDetail = async () => {
     const formData = new FormData(); // Create a FormData object to send file data
@@ -29,7 +28,7 @@ export default function Useregister() {
     formData.append("username", username);
     formData.append("number", number);
     formData.append("password", password);
-    formData.append("profileImage", profileImage); // Append the profile image to FormData
+    // formData.append("profileImage", profileImage); // Append the profile image to FormData
 
     try {
       const response = await fetch("http://localhost:5000/userregister", {
@@ -56,7 +55,12 @@ export default function Useregister() {
 
   return (
     <>
-      {/* Input fields */}
+      <div className="registration" >
+        <div className="reg-img">
+          <img src="register.png" alt="" />
+        </div>
+        <div className="input-fields">
+          {/* Input fields */}
       <input
         type="text"
         value={name}
@@ -95,8 +99,10 @@ export default function Useregister() {
         onChange={(e) => setNumber(e.target.value)}
       />
       {/* Profile image input */}
-      <input type="file" onChange={handleProfileImageChange} />
+      {/* <input type="file" onChange={handleProfileImageChange} /> */}
       <button onClick={addUserDetail}>Register</button>
+        </div>
+      </div>
     </>
   );
 }

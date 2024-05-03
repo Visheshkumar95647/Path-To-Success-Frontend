@@ -7,13 +7,16 @@ export default function Getalljobdetail() {
   const [data, setData] = useState([]);
   const [searchdata, setSearchdata] = useState("");
   const [allJobTitles, setAllJobTitles] = useState([]);
-  const [prodata, setProdata] = useState(null); // Changed from undefined to null
+  const [prodata, setProdata] = useState(null);
   const navigate = useNavigate();
 
   // handle log out
   const handleLogout = () => {
-    localStorage.clear();
+    const result = window.confirm("Are You Sure for Log Out");
+    if(result){
+      localStorage.clear();
     navigate("/");
+    }
   };
   const getalljob = async () => {
     try {
@@ -63,6 +66,31 @@ export default function Getalljobdetail() {
       console.error("Error fetching profile data:", error);
     }
   };
+
+  //Profile
+
+  const profile = () => {
+    const profiledrop = document.querySelector(".profile-cross img");
+    const profiledetails = document.querySelector(".pro-data");
+    const profilebutton = document.querySelector(".profile-button");
+    const profilecross = document.querySelector(".profile-cross");
+    profilebutton.addEventListener("click", () => {
+      profiledetails.style.display = "flex";
+      profilebutton.style.display = "none";
+      profiledrop.style.display = "block";
+    });
+    profilecross.addEventListener("click", () => {
+      profiledetails.style.display = "none";
+      profiledrop.style.display = "none";
+      profilebutton.style.display = "block";
+    });
+    // else {
+    //   profiledetails.style.display = "none";
+
+    //   a = 0;
+    // }
+  };
+
   useEffect(() => {
     profiledata();
     getalljob();
@@ -162,17 +190,45 @@ export default function Getalljobdetail() {
         </div>
       </div>
       <div className="Profile">
-        {prodata && (
-          <>
-            {prodata.profileImage && (
-              <img src={prodata.profileImage} alt="Profile" />
-            )}
-            <div className="name">{prodata.name}</div>
-            <div className="username">{prodata.username}</div>
-          </>
-        )}
-        <button onClick={handleLogout}>Logout</button>
+        <div className="profile-section">
+          <button className="profile-cross">
+            <img src="cross-pro.png" alt="" />
+          </button>
+          <div>
+            <button onClick={profile} className="profile-button">
+              <img src="profile.png" alt="" />
+            </button>
+          </div>
+        </div>
+        <div className="pro-data">
+          <div>
+              <img src="user.png" alt="" className="user-profile"/>
+          
+          </div>
+          {prodata && (
+            <div>
+              {/* {prodata.profileImage && (
+                <img src={prodata.profileImage} alt="Profile" />
+              )} */}
+              <div className="name">{prodata.name}</div>
+
+              <div className="username">
+                <u>{prodata.username}</u>
+              </div>
+            </div>
+          )}
+          <div className="Button">
+          <button className="changepass">Change Password</button>
+          <button onClick={handleLogout} className="logout">
+            Logout
+          </button>
+          </div>
+        </div>
       </div>
     </>
   );
 }
+
+// git remote add origin https://github.com/Visheshkumar95647/Path-to-Success.git
+// git branch -M main
+// git push -u origin main

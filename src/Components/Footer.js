@@ -9,7 +9,7 @@ export default function Footer() {
             <img src="pp.png" alt="" />
           </div>
           <div>
-            <h4>
+            <h4 className='para'>
               This Platform help in providing opportunities to you for your
               carrer.In this platfrom you will act as a job seeker as well as a
               job provider.Get Success . . .
