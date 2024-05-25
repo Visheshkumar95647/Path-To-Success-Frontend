@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Home from "../../client/src/Components/Home";
+import Providerregister from "./Components/Providerregister";
 import "./Components/App.css";
 import Postjob from "../../client/src/Components/Postjob";
 import Getalljobdetail from "../../client/src/Components/Getalljobdetail";
@@ -19,8 +20,8 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/adduser" element={<Useregister />} />
-          <Route path="/postjob" element={<Postjob />} />
-          {/* Wrap Getalljobdetail with RequireAuth */}
+          <Route path="/addprovider" element={<Providerregister />} />
+          <Route path="/postjob" element={<Postjob/>} />
           <Route
             path="/getalljob"
             element={
@@ -29,6 +30,14 @@ export default function App() {
               </RequireAuth>
             }
           />
+          {/* <Route
+            path="/postjob"
+            element={
+              <RequireAuth>
+                <Postjob />
+              </RequireAuth>
+            }
+          /> */}
         </Routes>
       </Router>
       <Footer />

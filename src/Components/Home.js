@@ -31,7 +31,9 @@ export default function Home() {
       alert("Error occurred");
     }
   };
-
+  // const validateProvider = async () =>{
+  //   const response = await 
+  // }
   useEffect(() => {
     // Remove the token from localStorage if it exists
     const token = localStorage.getItem('token');
@@ -142,7 +144,9 @@ export default function Home() {
               <button>SIGN IN</button>
             </div>
             <div className="not-have">
-              <button>Register</button>
+              <button>
+              <Link style={{ color: "rgba(232,120,0,255)" }} to="/addprovider">Register</Link>
+              </button>
             </div>
           </div>
         </div>

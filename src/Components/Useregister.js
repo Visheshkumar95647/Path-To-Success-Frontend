@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 export default function Useregister() {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
@@ -7,7 +8,7 @@ export default function Useregister() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [profileImage, setProfileImage] = useState(null); // State to store the selected profile image
-
+  const navigate = useNavigate();
   const checkPass = () => {
     if (password !== confirmPassword) {
       alert("Your passwords don't match");
@@ -15,12 +16,6 @@ export default function Useregister() {
       setConfirmPassword("");
     }
   };
-
-  // const handleProfileImageChange = (event) => {
-  //   const file = event.target.files[0]; 
-  //   setProfileImage(file); 
-  // };
-
   const addUserDetail = async () => {
     const formData = new FormData(); // Create a FormData object to send file data
     formData.append("name", name);
@@ -37,6 +32,7 @@ export default function Useregister() {
       });
       if (response.ok) {
         alert("User added successfully");
+        navigate('/')
         setName("");
         setEmail("");
         setPassword("");

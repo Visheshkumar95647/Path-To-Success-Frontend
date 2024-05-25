@@ -776,9 +776,9 @@ ul li .job-time{
 .registration{
   background: none;
   display: flex;
+  justify-content: center;
   align-items: center;
   margin-top: 100px;
-
 }
 .input-fields{
   display: flex;
