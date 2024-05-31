@@ -20,19 +20,29 @@ export default function ProviderRegister() {
     };
 
     const addProviderDetail = async () => {
-        const formd = new FormData();
-        formd.append("name", name);
-        formd.append("username", username);
-        formd.append("password", password);
-        formd.append("number", number);
-        formd.append("email", email);
-        formd.append("companyname", companyname);
+        if (password !== confirmPassword) {
+            alert("Passwords do not match");
+            return;
+        }
+
+        const providerData = {
+            name,
+            username,
+            email,
+            number,
+            password,
+            companyname
+        };
 
         try {
             const response = await fetch("http://localhost:5000/providerregister", {
                 method: "POST",
-                body: formd,
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(providerData),
             });
+
             if (response.ok) {
                 alert("User added successfully");
                 navigate('/');
@@ -44,7 +54,8 @@ export default function ProviderRegister() {
                 setConfirmPassword("");
                 setcompanyname("");
             } else {
-                alert("User not added");
+                const errorData = await response.json();
+                alert(errorData.error || "User not added");
             }
         } catch (error) {
             console.error("Error:", error);

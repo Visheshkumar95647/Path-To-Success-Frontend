@@ -48,7 +48,7 @@ export default function Getalljobdetail() {
   const profiledata = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/profile", {
+      const response = await fetch("http://localhost:5000/userprofile", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -84,11 +84,6 @@ export default function Getalljobdetail() {
       profiledrop.style.display = "none";
       profilebutton.style.display = "block";
     });
-    // else {
-    //   profiledetails.style.display = "none";
-
-    //   a = 0;
-    // }
   };
 
   useEffect(() => {
@@ -169,7 +164,7 @@ export default function Getalljobdetail() {
                         <h4>
                           <button>
                             <a
-                              href="http://www.facebook.com"
+                              href={job.joblink}
                               target="_blank"
                               rel="noopener noreferrer"
                             >

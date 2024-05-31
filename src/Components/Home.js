@@ -1,49 +1,124 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./App.css";
 
 export default function Home() {
   const [username, setUsername] = useState("");
   const [pass, setPass] = useState("");
-  const navigate = useNavigate(); 
+  const [providerusername, setproviderusername] = useState("");
+  const [providerpass, setproviderpass] = useState("");
+  const navigate = useNavigate();
 
   const validateUser = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/userlogin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: username,
-          password: pass,
-        }),
-      });
-      const result = await response.json();
-      if (response.ok) {
-        localStorage.setItem("token", result.token);
-        navigate("/getalljob");
-      } else {
-        console.log("Invalid credentials");
+    const usergivencap = document.querySelector('.enter-user-captcha input').value;
+    const userentercap = document.querySelector('.user-captcha').textContent;
+  
+    if (usergivencap === userentercap) {
+      try {
+        const response = await fetch("http://localhost:5000/userlogin", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: username,
+            password: pass,
+          }),
+        });
+        const result = await response.json();
+        if (response.ok) {
+          localStorage.setItem("token", result.token);
+          navigate("/getalljob");
+        } else {
+          console.log("Invalid credentials");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("Error occurred");
       }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Error occurred");
+    } else {
+      alert("Enter Valid Captcha");
+      document.querySelector('.enter-user-captcha input').value = ""; 
+      usercaptcha(); 
     }
   };
-  // const validateProvider = async () =>{
-  //   const response = await 
-  // }
+  
+  const validateProvider = async () => {
+    const providergivencap = document.querySelector('.enter-provider-captcha input').value;
+    const providerentercap = document.querySelector('.provider-captcha').textContent;
+    if(providergivencap === providerentercap){
+      try {
+        const response = await fetch("http://localhost:5000/providerlogin", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: providerusername,
+            password: providerpass,
+          }),
+        });
+        const result = await response.json();
+        if (response.ok) {
+          localStorage.setItem("providertoken", result.token);
+          navigate("/postjob");
+        } else {
+          console.log("Invalid credentials");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("Error occurred");
+      }
+    }else{
+      alert("Enter Valid Captcha");
+      document.querySelector('.enter-provider-captcha input').value = ""; 
+      providercaptcha(); 
+    }
+  };
+  const usercaptcha = () => {
+    let s = ""; 
+    const array = [
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 
+        'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 
+        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 
+        'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 
+        '1', '2', '3', '4', '5', '6', '7', '8', '9'
+    ];
+    for (let i = 0; i < 6; i++) { 
+        let a = Math.floor(Math.random() * array.length); 
+        s += array[a];
+    }
+  const userc = document.querySelector('.user-captcha');
+  userc.textContent = s;  
+};
+const providercaptcha = () => {
+  let s = ""; 
+  const array = [
+      'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 
+      'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 
+      'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 
+      'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 
+      '1', '2', '3', '4', '5', '6', '7', '8', '9'
+  ];
+  for (let i = 0; i < 6; i++) { 
+      let a = Math.floor(Math.random() * array.length); 
+      s += array[a];
+  }
+  const providerc = document.querySelector('.provider-captcha');
+  providerc.textContent = s;
+};
+
   useEffect(() => {
-    // Remove the token from localStorage if it exists
-    const token = localStorage.getItem('token');
-    if (token && window.location.href === localStorage.getItem('currentUrl')) {
-      localStorage.removeItem('token');
+    usercaptcha();
+    providercaptcha();
+    const token = localStorage.getItem("token");
+    if (token && window.location.href === localStorage.getItem("currentUrl")) {
+      localStorage.removeItem("token");
       console.log("Token removed from localStorage");
     }
 
     // Store the current URL in localStorage
-    localStorage.setItem('currentUrl', window.location.href);
+    localStorage.setItem("currentUrl", window.location.href);
   }, []);
 
   return (
@@ -81,14 +156,14 @@ export default function Home() {
             <a href="#">Forgot Account Details ?</a>
           </div>
           <div className="given-captcha">
-            <div className="captcha">7f34</div>
-            <div className="refresh">
+            <div className="user-captcha"></div>
+            <button className="refresh" onClick={usercaptcha}>
               <img src="refresh.png" alt="" />
-            </div>
+            </button>
           </div>
 
           <hr />
-          <div className="enter-captcha">
+          <div className="enter-user-captcha">
             <input type="text" placeholder="Enter Captcha" />
           </div>
 
@@ -113,12 +188,26 @@ export default function Home() {
 
           <hr />
           <div className="username">
-            <input type="text" placeholder="User Name" />
+            <input
+              type="text"
+              placeholder="User Name"
+              value={providerusername}
+              onChange={(e) => {
+                setproviderusername(e.target.value);
+              }}
+            />
           </div>
 
           <hr />
           <div className="pass">
-            <input type="password" placeholder="Enter Your Password " />
+            <input
+              type="password"
+              placeholder="Enter Your Password "
+              value={providerpass}
+              onChange={(e) => {
+                setproviderpass(e.target.value);
+              }}
+            />
           </div>
 
           <hr />
@@ -126,14 +215,14 @@ export default function Home() {
             <a href="#">Forgot Account Details ?</a>
           </div>
           <div className="given-captcha">
-            <div className="captcha">7f34</div>
-            <div className="refresh">
+            <div className="provider-captcha"></div>
+            <button className="refresh" onClick={providercaptcha}>
               <img src="refresh.png" alt="" />
-            </div>
+            </button>
           </div>
 
           <hr />
-          <div className="enter-captcha">
+          <div className="enter-provider-captcha">
             <input type="text" placeholder="Enter Captcha" />
           </div>
 
@@ -141,11 +230,16 @@ export default function Home() {
 
           <div className="sign">
             <div className="have">
-              <button>SIGN IN</button>
+              <button onClick={validateProvider}>SIGN IN</button>
             </div>
             <div className="not-have">
               <button>
-              <Link style={{ color: "rgba(232,120,0,255)" }} to="/addprovider">Register</Link>
+                <Link
+                  style={{ color: "rgba(232,120,0,255)" }}
+                  to="/addprovider"
+                >
+                  Register
+                </Link>
               </button>
             </div>
           </div>

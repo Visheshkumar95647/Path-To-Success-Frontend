@@ -838,3 +838,35 @@ ul li .job-time{
     margin-left: 10vw;
   }
 }
+
+
+/* Post-Job */
+
+.post-head{
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: rgba(232, 120, 0, 255);
+  text-shadow: 5px 5px 20px rgb(152, 145, 145);
+  font-weight: 900;
+  font-size: 60px;
+}
+
+.main-post{
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 100px;
+}
+
+/* Refresh button */
+.refresh{
+  border: none;
+}
+
+
+
+.user-captcha,.provider-captcha{
+  background-color: rgba(232, 120, 0, 255);
+  border-radius: 5px;
+  padding: 10px;
+}

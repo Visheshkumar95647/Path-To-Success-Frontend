@@ -21,8 +21,9 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/adduser" element={<Useregister />} />
           <Route path="/addprovider" element={<Providerregister />} />
-          <Route path="/postjob" element={<Postjob/>} />
-          <Route
+          <Route path="/postjob" element={<Postjob />} />
+          <Route path="/getalljob" element={<Getalljobdetail />} />
+          {/* <Route
             path="/getalljob"
             element={
               <RequireAuth>
@@ -30,8 +31,8 @@ export default function App() {
               </RequireAuth>
             }
           />
-          {/* <Route
-            path="/postjob"
+          <Route
+            path="/Postjob"
             element={
               <RequireAuth>
                 <Postjob />
@@ -39,7 +40,7 @@ export default function App() {
             }
           /> */}
         </Routes>
-      </Router>
+      </Router>   
       <Footer />
     </>
   );
