@@ -152,9 +152,6 @@ const providercaptcha = () => {
           </div>
 
           <hr />
-          <div className="forgot">
-            <a href="#">Forgot Account Details ?</a>
-          </div>
           <div className="given-captcha">
             <div className="user-captcha"></div>
             <button className="refresh" onClick={usercaptcha}>
@@ -211,9 +208,6 @@ const providercaptcha = () => {
           </div>
 
           <hr />
-          <div className="forgot">
-            <a href="#">Forgot Account Details ?</a>
-          </div>
           <div className="given-captcha">
             <div className="provider-captcha"></div>
             <button className="refresh" onClick={providercaptcha}>
