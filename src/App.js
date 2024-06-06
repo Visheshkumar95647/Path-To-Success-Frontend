@@ -6,7 +6,6 @@ import Postjob from "../../client/src/Components/Postjob";
 import Getalljobdetail from "../../client/src/Components/Getalljobdetail";
 import Useregister from "../../client/src/Components/Useregister";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import RequireAuth from "./Components/RequireAuth";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import { useTypewriter, Cursor } from "react-simple-typewriter";
@@ -23,22 +22,6 @@ export default function App() {
           <Route path="/addprovider" element={<Providerregister />} />
           <Route path="/postjob" element={<Postjob />} />
           <Route path="/getalljob" element={<Getalljobdetail />} />
-          {/* <Route
-            path="/getalljob"
-            element={
-              <RequireAuth>
-                <Getalljobdetail />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/Postjob"
-            element={
-              <RequireAuth>
-                <Postjob />
-              </RequireAuth>
-            }
-          /> */}
         </Routes>
       </Router>   
       <Footer />

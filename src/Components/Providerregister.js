@@ -58,7 +58,6 @@ export default function ProviderRegister() {
                 alert(errorData.error || "User not added");
             }
         } catch (error) {
-            console.error("Error:", error);
             alert("User not added");
         }
     };

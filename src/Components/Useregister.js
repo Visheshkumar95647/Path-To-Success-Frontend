@@ -44,7 +44,6 @@ export default function Useregister() {
         alert("User not added");
       }
     } catch (error) {
-      console.error("Error:", error);
       alert("User not added");
     }
   };

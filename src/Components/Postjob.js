@@ -8,6 +8,7 @@ export default function Postjob() {
   const [techskill, settechskill] = useState("");
   const [jobdescription, setjobdescription] = useState("");
   const [jobduration, setjobduration] = useState("");
+  const [jobcompany , setjobcompany] = useState("");
   const [joblink, setjoblink] = useState("");
   const [prodata, setProdata] = useState(null);
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ export default function Postjob() {
       techskill,
       jobdescription,
       jobduration,
+      jobcompany,
       joblink,
     };
     const response = await fetch("http://localhost:5000/addjob", {
@@ -34,10 +36,9 @@ export default function Postjob() {
     });
     const result = await response.json();
     if (!response.ok) {
-      console.log("Response nhi aa rha ");
-      console.log(result.error);
-    } else {
-      console.log(result);
+     alert("Some Error occured while Adding")
+    }else{
+      alert("Job Details Added Successfully")
     }
   };
   const handleLogout = () => {
@@ -58,11 +59,13 @@ export default function Postjob() {
       });
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
         setProdata(data.provider);
+      }else{
+        alert("User Does Not Exists")
+        navigate("/")
       }
     } catch (error) {
-      console.error("Error fetching profile data:", error);
+      console.log({"Error fetching profile data:": error});
     }
   };
   const profile = () => {
@@ -151,6 +154,14 @@ export default function Postjob() {
           />
           <input
             type="text"
+            placeholder="Company Name"
+            value={jobcompany}
+            onChange={(e) => {
+              setjobcompany(e.target.value);
+            }}
+          />
+          <input
+            type="text"
             placeholder="joblink"
             value={joblink}
             onChange={(e) => {
@@ -179,9 +190,6 @@ export default function Postjob() {
           </div>
           {prodata && (
             <div>
-              {/* {prodata.profileImage && (
-                <img src={prodata.profileImage} alt="Profile" />
-              )} */}
               <div className="name">{prodata.name}</div>
 
               <div className="username">

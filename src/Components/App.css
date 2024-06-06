@@ -547,7 +547,9 @@ ul li .job-des{
 ul li .job-type{
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
-
+.forgot{
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif9
+}
 ul li .job-mode{
   font-family: 'Courier New', Courier, monospace;
   font-size: 20px;

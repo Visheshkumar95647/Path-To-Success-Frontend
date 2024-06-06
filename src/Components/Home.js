@@ -12,7 +12,6 @@ export default function Home() {
   const validateUser = async () => {
     const usergivencap = document.querySelector('.enter-user-captcha input').value;
     const userentercap = document.querySelector('.user-captcha').textContent;
-  
     if (usergivencap === userentercap) {
       try {
         const response = await fetch("http://localhost:5000/userlogin", {
@@ -30,11 +29,11 @@ export default function Home() {
           localStorage.setItem("token", result.token);
           navigate("/getalljob");
         } else {
-          console.log("Invalid credentials");
+          alert("Invalid credentials");
+         usercaptcha(); 
         }
       } catch (error) {
-        console.error("Error:", error);
-        alert("Error occurred");
+        console.log({"Error fetching profile data:": error});
       }
     } else {
       alert("Enter Valid Captcha");
@@ -63,11 +62,12 @@ export default function Home() {
           localStorage.setItem("providertoken", result.token);
           navigate("/postjob");
         } else {
-          console.log("Invalid credentials");
+          alert("Invalid credentials");
+          providercaptcha();
         }
       } catch (error) {
-        console.error("Error:", error);
-        alert("Error occurred");
+        console.log({"Error fetching profile data:": error});
+        
       }
     }else{
       alert("Enter Valid Captcha");
@@ -111,14 +111,6 @@ const providercaptcha = () => {
   useEffect(() => {
     usercaptcha();
     providercaptcha();
-    const token = localStorage.getItem("token");
-    if (token && window.location.href === localStorage.getItem("currentUrl")) {
-      localStorage.removeItem("token");
-      console.log("Token removed from localStorage");
-    }
-
-    // Store the current URL in localStorage
-    localStorage.setItem("currentUrl", window.location.href);
   }, []);
 
   return (
@@ -152,6 +144,7 @@ const providercaptcha = () => {
           </div>
 
           <hr />
+          {/* <div className="forgot"><a href="">Forgot account details?</a></div> */}
           <div className="given-captcha">
             <div className="user-captcha"></div>
             <button className="refresh" onClick={usercaptcha}>
@@ -208,6 +201,7 @@ const providercaptcha = () => {
           </div>
 
           <hr />
+          {/* <div className="forgot"><a href="">Forgot account details?</a></div> */}
           <div className="given-captcha">
             <div className="provider-captcha"></div>
             <button className="refresh" onClick={providercaptcha}>

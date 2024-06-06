@@ -8,6 +8,7 @@ export default function Getalljobdetail() {
   const [searchdata, setSearchdata] = useState("");
   const [allJobTitles, setAllJobTitles] = useState([]);
   const [prodata, setProdata] = useState(null);
+  const [jobid , setjobid] = useState("");
   const navigate = useNavigate();
 
   // handle log out
@@ -36,11 +37,10 @@ export default function Getalljobdetail() {
         setData(result["ALL-JOb DATA"]);
         // Update all job titles after updating data
         setAllJobTitles(result["ALL-JOb DATA"].map((job) => job.jobtitle));
-      } else {
-        console.log("DATA not fetched");
+        setjobid(result["ALL-JOb DATA"].map((job) => job._id));
+        console.log(jobid)
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
       alert("An error occurred while fetching data");
     }
   };
@@ -57,16 +57,37 @@ export default function Getalljobdetail() {
       });
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
         setProdata(data.user);
       } else {
-        console.error("Error fetching profile data:", response.statusText);
+        alert("User Does Not Exists")
+        navigate("/")
       }
     } catch (error) {
-      console.error("Error fetching profile data:", error);
+     console({"Error fetching profile data:": error});
     }
   };
-
+// const applied = async (jobid) => {
+//   const token = localStorage.getItem("token");
+//   try {
+//     const response = await fetch(`http://localhost:5000/deletejob/:${jobid}`, {
+//       method: "DELETE",
+//       headers: {  
+//         "Content-Type": "application/json",
+//         "auth-token": token,
+//       },
+//     });
+//     if (response.ok) {
+//       const result = await response.json();
+     
+//       const element = document.querySelector(`button[data-id="${jobid}"]`);
+//       element.style.backgroundColor = "green";
+//     } else {
+//       console.error("Failed to delete job");
+//     }
+//   } catch (error) {
+//     console.error("Error deleting job:", error);
+//   }
+// };
   //Profile
 
   const profile = () => {
@@ -93,6 +114,7 @@ export default function Getalljobdetail() {
       duration: 2000,
     });
   }, []);
+  
   const distinct = [...new Set(allJobTitles)];
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
@@ -155,6 +177,8 @@ export default function Getalljobdetail() {
                       <u>Skills</u> : {job.techskill}
                     </h4>
                     <br />
+                    <h4><u>Company</u> : {job.jobcompany}</h4>
+                    <br />
                     <div className="job-apply">
                       <div className="job-time">
                         <h4>{job.jobduration}</h4>
@@ -162,11 +186,10 @@ export default function Getalljobdetail() {
                       </div>
                       <div className="job-link">
                         <h4>
-                          <button>
-                            <a
+                          <button onClick={applied}>
+                            <a className="apply-btn"
                               href={job.joblink}
                               target="_blank"
-                              rel="noopener noreferrer"
                             >
                               Apply
                             </a>
@@ -224,6 +247,4 @@ export default function Getalljobdetail() {
   );
 }
 
-// git remote add origin https://github.com/Visheshkumar95647/Path-to-Success.git
-// git branch -M main
-// git push -u origin main
+
