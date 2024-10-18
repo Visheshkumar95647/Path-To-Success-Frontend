@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { baseURL } from '../Url';
 export default function ProviderRegister() {
     const [name, setName] = useState("");
     const [username, setUsername] = useState("");
@@ -35,7 +35,7 @@ export default function ProviderRegister() {
         };
 
         try {
-            const response = await fetch("http://localhost:5000/providerregister", {
+            const response = await fetch(`${baseURL}/providerregister`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

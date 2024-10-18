@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./App.css";
-
+import { baseURL } from "../Url";
 export default function Home() {
   const [username, setUsername] = useState("");
   const [pass, setPass] = useState("");
@@ -14,7 +14,7 @@ export default function Home() {
     const userentercap = document.querySelector('.user-captcha').textContent;
     if (usergivencap === userentercap) {
       try {
-        const response = await fetch("http://localhost:5000/userlogin", {
+        const response = await fetch(`${baseURL}/userlogin`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -47,7 +47,7 @@ export default function Home() {
     const providerentercap = document.querySelector('.provider-captcha').textContent;
     if(providergivencap === providerentercap){
       try {
-        const response = await fetch("http://localhost:5000/providerlogin", {
+        const response = await fetch(`${baseURL}/providerlogin`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

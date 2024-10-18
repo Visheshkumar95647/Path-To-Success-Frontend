@@ -1,0 +1,1 @@
+export const baseURL = `https://path-to-success-backend-7.onrender.com`;

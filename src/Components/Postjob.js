@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { baseURL } from "../Url";
 export default function Postjob() {
   const [jobtype, setjobtype] = useState("");
   const [joblocation, setjoblocation] = useState("");
@@ -26,7 +27,7 @@ export default function Postjob() {
       jobcompany,
       joblink,
     };
-    const response = await fetch("http://localhost:5000/addjob", {
+    const response = await fetch(`${baseURL}/addjob`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,7 +51,7 @@ export default function Postjob() {
   };
   const profiledata = async () => {
     try {
-      const response = await fetch("http://localhost:5000/providerprofile", {
+      const response = await fetch(`${baseURL}/providerprofile`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

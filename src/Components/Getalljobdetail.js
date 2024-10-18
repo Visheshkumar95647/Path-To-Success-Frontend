@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { baseURL } from "../Url";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import "./App.css";
@@ -22,7 +23,7 @@ export default function Getalljobdetail() {
   const getalljob = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/getalljob", {
+      const response = await fetch(`${baseURL}/getalljob`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -48,7 +49,7 @@ export default function Getalljobdetail() {
   const profiledata = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/userprofile", {
+      const response = await fetch(`${baseURL}/userprofile`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

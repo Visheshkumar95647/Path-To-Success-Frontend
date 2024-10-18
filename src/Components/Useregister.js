@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { baseURL } from "../Url";
 export default function Useregister() {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
@@ -26,7 +27,7 @@ export default function Useregister() {
     };
   
     try {
-      const response = await fetch("http://localhost:5000/userregister", {
+      const response = await fetch(`${baseURL}/userregister`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json", // Set content type to JSON
