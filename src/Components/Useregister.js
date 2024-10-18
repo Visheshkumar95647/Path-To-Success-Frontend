@@ -7,7 +7,6 @@ export default function Useregister() {
   const [number, setNumber] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [profileImage, setProfileImage] = useState(null); // State to store the selected profile image
   const navigate = useNavigate();
   const checkPass = () => {
     if (password !== confirmPassword) {
@@ -17,37 +16,42 @@ export default function Useregister() {
     }
   };
   const addUserDetail = async () => {
-    const formData = new FormData(); // Create a FormData object to send file data
-    formData.append("name", name);
-    formData.append("email", email);
-    formData.append("username", username);
-    formData.append("number", number);
-    formData.append("password", password);
-    // formData.append("profileImage", profileImage); // Append the profile image to FormData
-
+    // Create the data object
+    const addUserData = {
+      name,
+      email,
+      username,
+      number,
+      password,
+    };
+  
     try {
       const response = await fetch("http://localhost:5000/userregister", {
         method: "POST",
-        body: formData, // Send FormData instead of JSON.stringify(addUserData)
+        headers: {
+          "Content-Type": "application/json", // Set content type to JSON
+        },
+        body: JSON.stringify(addUserData), // Convert object to JSON
       });
+  
       if (response.ok) {
         alert("User added successfully");
-        navigate('/')
+        navigate('/');
         setName("");
         setEmail("");
         setPassword("");
         setNumber("");
         setUsername("");
         setConfirmPassword("");
-        setProfileImage(null); // Reset profile image state after successful submission
       } else {
-        alert("User not added");
+        const result = await response.json(); // Get error message from server
+        alert(result.error || "User not added");
       }
     } catch (error) {
-      alert("User not added");
+      alert("An error occurred. User not added");
     }
   };
-
+  
   return (
     <>
       <div className="registration" >

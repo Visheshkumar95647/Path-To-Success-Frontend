@@ -186,7 +186,7 @@ export default function Getalljobdetail() {
                       </div>
                       <div className="job-link">
                         <h4>
-                          <button onClick={applied}>
+                          <button>
                             <a className="apply-btn"
                               href={job.joblink}
                               target="_blank"
