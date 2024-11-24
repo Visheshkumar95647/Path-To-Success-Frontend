@@ -98,8 +98,6 @@ export default function Useregister() {
         value={number}
         onChange={(e) => setNumber(e.target.value)}
       />
-      {/* Profile image input */}
-      {/* <input type="file" onChange={handleProfileImageChange} /> */}
       <button onClick={addUserDetail}>Register</button>
         </div>
       </div>
